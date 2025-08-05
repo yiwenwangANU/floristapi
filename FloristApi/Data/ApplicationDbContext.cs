@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿
+using FloristApi.Models.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace FloristApi.Data
 {
@@ -8,5 +11,7 @@ namespace FloristApi.Data
         {
 
         }
+
+        public DbSet<Flower> Flowers { get; set; }
     }
 }
