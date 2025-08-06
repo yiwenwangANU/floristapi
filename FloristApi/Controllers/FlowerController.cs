@@ -25,6 +25,21 @@ namespace FloristApi.Controllers
             var response = await _flowerService.CreateFlower(dto);
             return Ok(response);
         }
+        [HttpGet("getFlowers")]
+        public async Task<IActionResult> getFlowers()
+        {
+            var response = await _flowerService.GetFlowers();
+            return Ok(response);
+        }
+        [HttpGet("getFlowerById/{id}")]
+        public async Task<IActionResult> getFlowerById(int id)
+        {
+
+                var response = await _flowerService.GetFlowerById(id);
+                return Ok(response);
+
+
+        }
     }
 
 }
