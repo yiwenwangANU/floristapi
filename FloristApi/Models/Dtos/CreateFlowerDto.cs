@@ -20,7 +20,7 @@ namespace FloristApi.Models.Dtos
         [Required(ErrorMessage = "Product type is required.")]
         [EnumDataType(typeof(ProductTypes), ErrorMessage = "Invalid product type.")]
         public required ProductTypes ProductType { get; set; }
-        public int? Discount { get; set; } = 0;
+        public int? Discount { get; set; } 
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

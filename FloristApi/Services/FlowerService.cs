@@ -1,8 +1,6 @@
 ﻿using FloristApi.Models.Dtos;
-using FloristApi.Models.Entities;
 using FloristApi.Models.Mappings;
 using FloristApi.Repositories;
-using Microsoft.JSInterop.Infrastructure;
 
 namespace FloristApi.Services
 {
@@ -23,17 +21,20 @@ namespace FloristApi.Services
                 : throw new Exception("Flower creation failed.");
         }
 
-        public async Task<IEnumerable<GetFlowerResponse>> IFlowerService.GetFlowers()
+        public async Task<IEnumerable<GetFlowerResponse>> GetFlowers()
         {
             var flowers = await _flowerRepository.GetAll();
             return flowers.Select(flower => flower.ToResponse());
         }
 
-        Task<GetFlowerResponse> IFlowerService.GetFlowerById(int id)
+        public async Task<GetFlowerResponse> GetFlowerById(int id)
         {
-            throw new NotImplementedException();
+            var flower = await _flowerRepository.GetById(id);
+            if (flower is null)
+            {
+                throw new KeyNotFoundException($"Flower with ID {id} not found.");
+            }
+            return flower.ToResponse();
         }
-    }
-    {
     }
 }
