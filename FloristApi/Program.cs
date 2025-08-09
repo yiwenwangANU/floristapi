@@ -43,6 +43,9 @@ builder.Services.AddScoped<IFlowerRepository, FlowerRepository>();
 builder.Services.AddScoped<IFlowerService, FlowerService>();
 var app = builder.Build();
 
+// serve wwwroot (default) => /uploads/... will be public
+app.UseStaticFiles();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
