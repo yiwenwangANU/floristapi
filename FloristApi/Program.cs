@@ -45,6 +45,7 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddScoped<IFlowerRepository, FlowerRepository>();
 builder.Services.AddScoped<IFlowerService, FlowerService>();
+builder.Services.AddScoped<IBlobService, BlobService>();
 var app = builder.Build();
 
 // serve wwwroot (default) => /uploads/... will be public

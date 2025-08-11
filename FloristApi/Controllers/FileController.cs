@@ -19,8 +19,9 @@ namespace FloristApi.Controllers
         }
 
         [HttpPost("upload-image")]
+        [Consumes("multipart/form-data")]
         [RequestSizeLimit(MaxBytes)] 
-        public async Task<IActionResult> UploadImage([FromForm] IFormFile file, CancellationToken ct)
+        public async Task<IActionResult> UploadImage(IFormFile file, CancellationToken ct)
         {
             if (file is null || file.Length == 0) return BadRequest("No file.");
             if (!Allowed.Contains(file.ContentType)) return BadRequest("Only PNG/JPEG/WEBP.");
