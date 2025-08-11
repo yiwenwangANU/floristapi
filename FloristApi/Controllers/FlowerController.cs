@@ -14,11 +14,14 @@ namespace FloristApi.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IFlowerService _flowerService;
-        public FlowerController(UserManager<IdentityUser> userManager, IFlowerService flowerService)
+        private readonly IBlobService _blobService;
+        public FlowerController(UserManager<IdentityUser> userManager, IFlowerService flowerService, IBlobService blobService)
         {
             _userManager = userManager;
             _flowerService = flowerService;
+            _blobService = blobService;
         }
+        
         [HttpPost("createFlower")]
         public async Task<IActionResult> CreateFlower([FromBody]CreateFlowerDto dto)
         {

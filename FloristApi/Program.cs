@@ -5,6 +5,7 @@ using FloristApi.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Azure;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +18,10 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration["ConnectionStrings:floristapi:sqldb"]));
 
+builder.Services.AddAzureClients(azureBuilder =>
+{
+    azureBuilder.AddBlobServiceClient(builder.Configuration["ConnectionStrings:floristapi:storage"]);
+});
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => { 
     options.Password.RequiredLength = 6;
     options.SignIn.RequireConfirmedAccount = false;
