@@ -18,7 +18,7 @@ namespace FloristApi.Controllers
             _blobService = blobservice;
         }
 
-        [HttpPost("upload-image")]
+        [HttpPost("uploadImage")]
         [Consumes("multipart/form-data")]
         [RequestSizeLimit(MaxBytes)] 
         public async Task<IActionResult> UploadImage(IFormFile file, CancellationToken ct)
