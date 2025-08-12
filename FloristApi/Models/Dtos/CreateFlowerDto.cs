@@ -43,7 +43,7 @@ namespace FloristApi.Models.Dtos
             // Only validate discount if it has a value
             if (Discount.HasValue)
             {
-                if (Discount.Value <= 0)
+                if (Discount.Value < 0)
                 {
                     yield return new ValidationResult(
                         "Discount must be greater than 0 when provided",
