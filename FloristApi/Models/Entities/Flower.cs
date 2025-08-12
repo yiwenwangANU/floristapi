@@ -19,5 +19,13 @@ namespace FloristApi.Models.Entities
         public bool IsPopular { get; set; } = false;
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public ICollection<FlowerFlowerType> FlowerTypes { get; set; } = new List<FlowerFlowerType>();
+    }
+
+    public class FlowerFlowerType
+    {
+        public int FlowerId { get; set; }
+        public Flower Flower { get; set; } = default!;
+        public FlowerTypes FlowerType { get; set; }
     }
 }
