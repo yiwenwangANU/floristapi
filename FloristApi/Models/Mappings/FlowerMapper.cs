@@ -12,9 +12,14 @@ namespace FloristApi.Models.Mappings
                 Name = dto.Name,
                 Description = dto.Description,
                 ImageUrl = dto.ImageUrl,
-                Price = dto.Price,
+
                 ProductType = dto.ProductType,
-                Discount = dto.Discount ?? 0
+                Color = dto.Color,
+                Occasion = dto.Occasion,
+
+                Price = dto.Price,
+                Discount = dto.Discount ?? 0,
+                IsPopular = dto.isPopular ?? false,
             };
         }
 
