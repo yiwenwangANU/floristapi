@@ -21,13 +21,13 @@ namespace FloristApi.Models.Entities
         public bool IsPopular { get; set; } = false;
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        public List<FlowerType> FlowerTypes { get; } = [];
+        public HashSet<FlowerType> FlowerTypes { get; } = [];
     }
 
     public class FlowerType
     {
         public int Id { get; set; }
         public required string Name { get; set; }
-        public List<Flower> Flowers { get; } = [];
+        public HashSet<Flower> Flowers { get; } = [];
     }
 }

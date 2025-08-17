@@ -4,6 +4,7 @@ using FloristApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FloristApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250817052730_new-flower")]
+    partial class newflower
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -83,68 +86,6 @@ namespace FloristApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("FlowerTypes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Roses"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Chrysanthemums"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Carnations"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Natives"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "Gerberas"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Name = "Orchids"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Name = "Lilies"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Name = "Tropicals"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Name = "Sunflowers"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            Name = "Irises"
-                        },
-                        new
-                        {
-                            Id = 11,
-                            Name = "Tulips"
-                        },
-                        new
-                        {
-                            Id = 12,
-                            Name = "Other"
-                        });
                 });
 
             modelBuilder.Entity("FlowerFlowerType", b =>

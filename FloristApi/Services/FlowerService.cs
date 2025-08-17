@@ -33,11 +33,10 @@ namespace FloristApi.Services
             _dbContext.Flowers.Add(flower);
             await _dbContext.SaveChangesAsync(ct);
 
-            var created = await _dbContext.Flowers
-                .AsNoTracking()
-                .Include(f => f.FlowerTypes)
-                .FirstAsync(f => f.Id == flower.Id, ct);
-            return created.ToResponse();
+            var response = await _flowerRepository.GetById(flower.Id);
+            return response is not null
+                ? response.ToResponse()
+                : throw new Exception("Flower creation failed.");
         }
 
         public async Task<IEnumerable<GetFlowerResponse>> GetFlowers()
@@ -55,7 +54,5 @@ namespace FloristApi.Services
             }
             return flower.ToResponse();
         }
-
-      
     }
 }

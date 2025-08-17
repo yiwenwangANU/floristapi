@@ -21,9 +21,9 @@ namespace FloristApi.Controllers
         }
         
         [HttpPost("createFlower")]
-        public async Task<IActionResult> CreateFlower([FromBody]CreateFlowerDto dto)
+        public async Task<IActionResult> CreateFlower([FromBody]CreateFlowerDto dto, CancellationToken ct)
         {
-            var response = await _flowerService.CreateFlower(dto);
+            var response = await _flowerService.CreateFlower(dto, ct);
             return Ok(response);
         }
         [HttpGet("getFlowers")]
