@@ -15,23 +15,29 @@ namespace FloristApi.Services
             _dbContext = dbContext;
             _flowerRepository = flowerRepository;
         }
-        public async Task<GetFlowerResponse> CreateFlower(CreateFlowerDto dto)
+        public async Task<GetFlowerResponse> CreateFlower(CreateFlowerDto dto, CancellationToken ct = default)
         {
             var flower = dto.ToEntity();
             var types = await _dbContext.FlowerTypes
                 .Where(ft => dto.FlowerTypeIds.Contains(ft.Id))
-                .ToListAsync();
+                .ToListAsync(ct);
             if (types.Count != dto.FlowerTypeIds.Count)
             {
                 var foundIds = types.Select(t => t.Id).ToHashSet();
                 var missingIds = dto.FlowerTypeIds.Where(id => !foundIds.Contains(id));
                 throw new ArgumentException($"Unknown FlowerTypeIds: {string.Join(", ", missingIds)}");
             }
-            await _flowerRepository.Add(flower);
-            var response = await _flowerRepository.GetById(flower.Id);
-            return response is not null
-                ? response.ToResponse()
-                : throw new Exception("Flower creation failed.");
+
+            foreach (var t in types)
+                flower.FlowerTypes.Add(t);
+            _dbContext.Flowers.Add(flower);
+            await _dbContext.SaveChangesAsync(ct);
+
+            var created = await _dbContext.Flowers
+                .AsNoTracking()
+                .Include(f => f.FlowerTypes)
+                .FirstAsync(f => f.Id == flower.Id, ct);
+            return created.ToResponse();
         }
 
         public async Task<IEnumerable<GetFlowerResponse>> GetFlowers()
@@ -49,5 +55,7 @@ namespace FloristApi.Services
             }
             return flower.ToResponse();
         }
+
+      
     }
 }

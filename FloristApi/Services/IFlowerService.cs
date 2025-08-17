@@ -4,7 +4,7 @@ namespace FloristApi.Services
 {
     public interface IFlowerService
     {
-        Task<GetFlowerResponse> CreateFlower(CreateFlowerDto dto);
+        Task<GetFlowerResponse> CreateFlower(CreateFlowerDto dto, CancellationToken ct);
         Task<IEnumerable<GetFlowerResponse>> GetFlowers();
         Task<GetFlowerResponse> GetFlowerById(int id);
     }
