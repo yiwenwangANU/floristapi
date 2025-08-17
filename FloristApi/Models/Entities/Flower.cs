@@ -1,4 +1,6 @@
-﻿using FloristApi.Enums;
+﻿using Azure;
+using FloristApi.Enums;
+using Microsoft.Extensions.Hosting;
 using System.ComponentModel.DataAnnotations;
 
 namespace FloristApi.Models.Entities
@@ -19,13 +21,13 @@ namespace FloristApi.Models.Entities
         public bool IsPopular { get; set; } = false;
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        public ICollection<FlowerFlowerType> FlowerTypes { get; set; } = new List<FlowerFlowerType>();
+        public List<FlowerType> FlowerTypes { get; } = [];
     }
 
-    public class FlowerFlowerType
+    public class FlowerType
     {
-        public int FlowerId { get; set; }
-        public Flower Flower { get; set; } = default!;
-        public FlowerTypes FlowerType { get; set; }
+        public int Id { get; set; }
+        public required string Name { get; set; }
+        public List<Flower> Flowers { get; } = [];
     }
 }

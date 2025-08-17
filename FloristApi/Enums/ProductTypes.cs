@@ -10,6 +10,7 @@
         hamper,
         plant,
         succulent,
+        driedflower,
         other
     }
     public enum ColorTypes

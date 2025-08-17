@@ -29,8 +29,7 @@ namespace FloristApi.Models.Dtos
         [EnumDataType(typeof(OccasionTypes), ErrorMessage = "Invalid occasion type.")]
         public required OccasionTypes Occasion { get; set; }
 
-        [MinLength(1, ErrorMessage = "Select at least one flower type.")]
-        public List<FlowerTypes>? Flowers { get; set; }
+        public List<int> FlowerTypeIds { get; set; } = new List<int>();
 
         [Required(ErrorMessage = "Price is required.")]
         [Range(1, 10000, ErrorMessage = "Price must be between $1 and $10,000.")]
@@ -40,6 +39,12 @@ namespace FloristApi.Models.Dtos
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
+            if (FlowerTypeIds == null || FlowerTypeIds.Count == 0)
+                yield return new ValidationResult("Select at least one flower type.", new[] { nameof(FlowerTypeIds) });
+
+            // Optional: prevent duplicates / invalid non-positive IDs
+            if (FlowerTypeIds.Count != FlowerTypeIds.Distinct().Count())
+                yield return new ValidationResult("Duplicate flower types are not allowed.", new[] { nameof(FlowerTypeIds) });
             // Only validate discount if it has a value
             if (Discount.HasValue)
             {

@@ -13,5 +13,6 @@ namespace FloristApi.Data
         }
 
         public DbSet<Flower> Flowers { get; set; }
+        public DbSet<FlowerType> FlowerTypes { get; set; }
     }
 }
