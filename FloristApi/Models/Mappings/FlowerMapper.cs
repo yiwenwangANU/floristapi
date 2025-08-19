@@ -27,6 +27,7 @@ namespace FloristApi.Models.Mappings
         {
             return new GetFlowerResponse
             {
+                Id = flower.Id,
                 Name = flower.Name,
                 Description = flower.Description,
                 ImageUrl = flower.ImageUrl,
