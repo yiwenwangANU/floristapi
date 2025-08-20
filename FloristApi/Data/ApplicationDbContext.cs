@@ -14,6 +14,9 @@ namespace FloristApi.Data
 
         public DbSet<Flower> Flowers { get; set; }
         public DbSet<FlowerType> FlowerTypes { get; set; }
+        public DbSet<Wine> Wines { get; set; }
+        public DbSet<Teddy> Teddies { get; set; }
+        public DbSet<Chocolate> Chocolate { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
