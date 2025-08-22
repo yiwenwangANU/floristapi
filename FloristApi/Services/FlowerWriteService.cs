@@ -77,5 +77,11 @@ namespace FloristApi.Services
             await _flowerRepository.Delete(id);
             return true;
         }
+
+        public async Task<IEnumerable<Flower>> GetFlowersAdmin()
+        {
+            var flowers = await _flowerRepository.GetAll();
+            return flowers;
+        }
     }
 }

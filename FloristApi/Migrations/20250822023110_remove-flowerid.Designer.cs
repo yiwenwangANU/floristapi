@@ -4,6 +4,7 @@ using FloristApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FloristApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250822023110_remove-flowerid")]
+    partial class removeflowerid
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -103,11 +106,16 @@ namespace FloristApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("FlowerId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FlowerId");
 
                     b.ToTable("FlowerTypes");
 
@@ -226,21 +234,6 @@ namespace FloristApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Wines");
-                });
-
-            modelBuilder.Entity("FlowerFlowerType", b =>
-                {
-                    b.Property<int>("FlowerTypesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FlowersId")
-                        .HasColumnType("int");
-
-                    b.HasKey("FlowerTypesId", "FlowersId");
-
-                    b.HasIndex("FlowersId");
-
-                    b.ToTable("FlowerFlowerType");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -441,19 +434,11 @@ namespace FloristApi.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("FlowerFlowerType", b =>
+            modelBuilder.Entity("FloristApi.Models.Entities.FlowerType", b =>
                 {
-                    b.HasOne("FloristApi.Models.Entities.FlowerType", null)
-                        .WithMany()
-                        .HasForeignKey("FlowerTypesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("FloristApi.Models.Entities.Flower", null)
-                        .WithMany()
-                        .HasForeignKey("FlowersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("FlowerTypes")
+                        .HasForeignKey("FlowerId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -505,6 +490,11 @@ namespace FloristApi.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("FloristApi.Models.Entities.Flower", b =>
+                {
+                    b.Navigation("FlowerTypes");
                 });
 #pragma warning restore 612, 618
         }

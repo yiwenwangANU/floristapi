@@ -28,6 +28,6 @@ namespace FloristApi.Models.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; } = String.Empty;
-
+        public HashSet<Flower> Flowers { get; } = [];
     }
 }
