@@ -37,7 +37,9 @@ namespace FloristApi.Repositories
 
         public async Task<Flower?> GetById(int id)
         {
-            return await _context.FindAsync<Flower>(id);
+            return await _context.Flowers
+                .Include(f => f.FlowerTypes)
+                .FirstOrDefaultAsync(f => f.Id == id);
         }
     }
 }
