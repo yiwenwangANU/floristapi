@@ -24,10 +24,10 @@ namespace FloristApi.Controllers.admin
             var response = await _flowerWriteService.CreateFlower(dto, ct);
             return Ok(response);
         }
-        [HttpPost("editFlower")]
-        public async Task<IActionResult> EditFlower(int id, [FromBody] CreateFlowerDto dto, CancellationToken ct)
+        [HttpPost("updateFlower")]
+        public async Task<IActionResult> UpdateFlower(int id, [FromBody] CreateFlowerDto dto, CancellationToken ct)
         {
-            var response = await _flowerWriteService.EditFlower(id, dto, ct);
+            var response = await _flowerWriteService.UpdateFlower(id, dto, ct);
             return Ok(response);
         }
         [HttpDelete("deleteFlower")]

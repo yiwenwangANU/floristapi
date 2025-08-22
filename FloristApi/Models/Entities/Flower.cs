@@ -27,7 +27,7 @@ namespace FloristApi.Models.Entities
     public class FlowerType
     {
         public int Id { get; set; }
-        public required string Name { get; set; }
-        public HashSet<Flower> Flowers { get; } = [];
+        public string Name { get; set; } = String.Empty;
+
     }
 }

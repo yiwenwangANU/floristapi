@@ -6,7 +6,7 @@ namespace FloristApi.Services
     public interface IFlowerWriteService
     {
         Task<GetFlowerResponse> CreateFlower(CreateFlowerDto dto, CancellationToken ct);
-        Task<GetFlowerResponse> UpdateFlower(int id, CreateFlowerDto dto, CancellationToken ct);
-        Task DeleteFlower(int id);
+        Task<bool?> UpdateFlower(int id, CreateFlowerDto dto, CancellationToken ct);
+        Task<bool?> DeleteFlower(int id);
     }
 }
