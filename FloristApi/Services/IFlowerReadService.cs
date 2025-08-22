@@ -1,10 +1,11 @@
-﻿using FloristApi.Models.Dtos;
+﻿using FloristApi.Models.Dtos.admin;
+using FloristApi.Models.Dtos.@public;
 
 namespace FloristApi.Services
 {
-    public interface IFlowerService
+    public interface IFlowerReadService
     {
-        Task<GetFlowerResponse> CreateFlower(CreateFlowerDto dto, CancellationToken ct);
+        
         Task<IEnumerable<GetFlowerResponse>> GetFlowers();
         Task<GetFlowerResponse> GetFlowerById(int id);
     }

@@ -1,6 +1,6 @@
 ﻿using FloristApi.Enums;
 
-namespace FloristApi.Models.Dtos
+namespace FloristApi.Models.Dtos.@public
 {
     public class GetGiftResponse
     {

@@ -1,16 +1,17 @@
 ﻿using FloristApi.Data;
-using FloristApi.Models.Dtos;
+using FloristApi.Models.Dtos.admin;
+using FloristApi.Models.Dtos.@public;
 using FloristApi.Models.Mappings;
 using FloristApi.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace FloristApi.Services
 {
-    public class FlowerService: IFlowerService
+    public class FlowerWriteService : IFlowerWriteService
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly IFlowerRepository _flowerRepository;
-        public FlowerService(ApplicationDbContext dbContext, IFlowerRepository flowerRepository)
+        public FlowerWriteService(ApplicationDbContext dbContext, IFlowerRepository flowerRepository)
         {
             _dbContext = dbContext;
             _flowerRepository = flowerRepository;
@@ -37,22 +38,6 @@ namespace FloristApi.Services
             return response is not null
                 ? response.ToResponse()
                 : throw new Exception("Flower creation failed.");
-        }
-
-        public async Task<IEnumerable<GetFlowerResponse>> GetFlowers()
-        {
-            var flowers = await _flowerRepository.GetAll();
-            return flowers.Select(flower => flower.ToResponse());
-        }
-
-        public async Task<GetFlowerResponse> GetFlowerById(int id)
-        {
-            var flower = await _flowerRepository.GetById(id);
-            if (flower is null)
-            {
-                throw new KeyNotFoundException($"Flower with ID {id} not found.");
-            }
-            return flower.ToResponse();
         }
     }
 }

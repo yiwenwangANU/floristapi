@@ -6,26 +6,20 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 
-namespace FloristApi.Controllers
+namespace FloristApi.Controllers.@public
 {
-    [Route("api/[controller]")]
+    [Route("api/public/[controller]")]
     [ApiController]
     public class FlowerController : ControllerBase
     {
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly IFlowerService _flowerService;
-        public FlowerController(UserManager<IdentityUser> userManager, IFlowerService flowerService)
+        private readonly IFlowerReadService _flowerService;
+        public FlowerController(UserManager<IdentityUser> userManager, IFlowerReadService flowerService)
         {
             _userManager = userManager;
             _flowerService = flowerService;
         }
         
-        [HttpPost("createFlower")]
-        public async Task<IActionResult> CreateFlower([FromBody]CreateFlowerDto dto, CancellationToken ct)
-        {
-            var response = await _flowerService.CreateFlower(dto, ct);
-            return Ok(response);
-        }
         [HttpGet("getFlowers")]
         public async Task<IActionResult> GetFlowers()
         {

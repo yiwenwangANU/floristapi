@@ -50,7 +50,8 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddScoped<IFlowerRepository, FlowerRepository>();
-builder.Services.AddScoped<IFlowerService, FlowerService>();
+builder.Services.AddScoped<IFlowerReadService, FlowerReadService>();
+builder.Services.AddScoped<IFlowerWriteService, FlowerWriteService>();
 builder.Services.AddScoped<IBlobService, BlobService>();
 var app = builder.Build();
 
