@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FloristApi.Controllers.admin
 {
-    [Route("api/admin/[controller]")]
+    [Route("api/admin/flower")]
     [ApiController]
     public class FlowerAdminController : ControllerBase
     {
@@ -23,6 +23,18 @@ namespace FloristApi.Controllers.admin
         {
             var response = await _flowerWriteService.CreateFlower(dto, ct);
             return Ok(response);
+        }
+        [HttpPost("editFlower")]
+        public async Task<IActionResult> EditFlower(int id, [FromBody] CreateFlowerDto dto, CancellationToken ct)
+        {
+            var response = await _flowerWriteService.EditFlower(id, dto, ct);
+            return Ok(response);
+        }
+        [HttpDelete("deleteFlower")]
+        public async Task<IActionResult> DeleteFlower(int id)
+        {
+            await _flowerWriteService.DeleteFlower(id);
+            return Ok();
         }
     }
 }

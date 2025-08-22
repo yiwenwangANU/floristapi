@@ -1,5 +1,5 @@
-﻿using FloristApi.Models.Dtos;
-using FloristApi.Models.Dtos.admin;
+﻿using FloristApi.Models.Dtos.admin;
+using FloristApi.Models.Dtos.@public;
 using FloristApi.Models.Entities;
 using System.Runtime.CompilerServices;
 

@@ -39,5 +39,15 @@ namespace FloristApi.Services
                 ? response.ToResponse()
                 : throw new Exception("Flower creation failed.");
         }
+public Task<GetFlowerResponse> UpdateFlower(int id, CreateFlowerDto dto, CancellationToken ct)
+        {
+            throw new NotImplementedException();
+        }
+        public Task DeleteFlower(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        
     }
 }

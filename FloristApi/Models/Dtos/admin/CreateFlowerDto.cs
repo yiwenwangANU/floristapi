@@ -1,7 +1,7 @@
 ﻿using FloristApi.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace FloristApi.Models.Dtos
+namespace FloristApi.Models.Dtos.admin
 {
     public class CreateFlowerDto : IValidatableObject
     {
