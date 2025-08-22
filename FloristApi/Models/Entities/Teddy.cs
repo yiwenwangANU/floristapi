@@ -1,6 +1,6 @@
 ﻿namespace FloristApi.Models.Entities
 {
-    public class Teddy
+    public class Teddy:IGiftEntity
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;

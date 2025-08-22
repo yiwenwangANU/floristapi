@@ -1,6 +1,6 @@
 ﻿namespace FloristApi.Models.Entities
 {
-    public class Chocolate
+    public class Chocolate: IGiftEntity
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
