@@ -34,8 +34,7 @@ namespace FloristApi.Services
         {
             var gift = await _giftRepository.GetById(id, ct);
             if (gift == null) throw new KeyNotFoundException($"Gift {id} not found.");
-            var blobName = gift.ImageUrl;
-            await _blobService.DeleteAsync(blobName, ct);
+            await _blobService.DeleteAsync(gift.ImageUrl, ct);
             var removed = await _giftRepository.Delete(id, ct);
             if (!removed) throw new KeyNotFoundException($"Gift {id} not found.");
         }

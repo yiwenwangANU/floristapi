@@ -8,6 +8,6 @@ namespace FloristApi.Services
     {
         Task<GetGiftResponse> CreateGift(CreateGiftDto dto, CancellationToken ct);
         Task<bool?> UpdateGift(int id, CreateGiftDto dto, CancellationToken ct);
-        Task DeleteGift(int id);
+        Task DeleteGift(int id, CancellationToken ct = default);
     }
 }

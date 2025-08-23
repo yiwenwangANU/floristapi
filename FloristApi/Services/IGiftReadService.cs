@@ -5,8 +5,8 @@ namespace FloristApi.Services
 {
     public interface IGiftReadService<T> where T : class , IGiftEntity
     {
-        Task<IEnumerable<GetGiftResponse>> GetAllGifts();
-        Task<GetGiftResponse?> GetGiftById(int id);
+        Task<IEnumerable<GetGiftResponse>> GetAllGifts(CancellationToken ct = default);
+        Task<GetGiftResponse?> GetGiftById(int id, CancellationToken ct = default);
     }
 
 }
