@@ -11,10 +11,12 @@ namespace FloristApi.Services
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly IGiftRepository<T> _giftRepository;
-        public GiftWriteService(ApplicationDbContext dbContext, IGiftRepository<T> giftRepository)
+        private readonly IBlobService _blobService;
+        public GiftWriteService(ApplicationDbContext dbContext, IGiftRepository<T> giftRepository, IBlobService blobService)
         {
             _dbContext = dbContext;
             _giftRepository = giftRepository;
+            _blobService = blobService;
         }
         public async Task<GetGiftResponse> CreateGift(CreateGiftDto dto, CancellationToken ct = default)
         {
@@ -30,6 +32,10 @@ namespace FloristApi.Services
 
         public async Task DeleteGift(int id, CancellationToken ct = default)
         {
+            var gift = await _giftRepository.GetById(id, ct);
+            if (gift == null) throw new KeyNotFoundException($"Gift {id} not found.");
+            var blobName = gift.ImageUrl;
+            await _blobService.DeleteAsync(blobName, ct);
             var removed = await _giftRepository.Delete(id, ct);
             if (!removed) throw new KeyNotFoundException($"Gift {id} not found.");
         }
