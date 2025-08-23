@@ -21,13 +21,14 @@ namespace FloristApi.Repositories
             _context.Set<T>().Update(entity);
             await _context.SaveChangesAsync();
         }
-        public async Task Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             var gift = await _context.Set<T>().FindAsync(id);
-            if (gift == null) return;
+            if (gift == null) return false;
 
             _context.Set<T>().Remove(gift);
             await _context.SaveChangesAsync();
+            return true;
         }
         public async Task<IEnumerable<T>> GetAll()
         {

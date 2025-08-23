@@ -28,10 +28,10 @@ namespace FloristApi.Services
                 : throw new Exception("Gift creation failed.");
         }
 
-        public async Task<bool?> DeleteGift(int id)
+        public async Task DeleteGift(int id)
         {
-            await _giftRepository.Delete(id);
-            return true;
+            var removed = await _giftRepository.Delete(id);
+            if (!removed) throw new KeyNotFoundException($"Gift {id} not found.");
         }
 
         public async Task<bool?> UpdateGift(int id, CreateGiftDto dto, CancellationToken ct)
