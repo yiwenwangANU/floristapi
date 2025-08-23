@@ -46,9 +46,13 @@ namespace FloristApi.Services
             if (gift == null) throw new KeyNotFoundException($"Gift {id} not found.");
 
             gift.Name = dto.Name;
-            gift.ImageUrl = dto.ImageUrl;
             gift.Price = dto.Price;
-
+            if(gift.ImageUrl != dto.ImageUrl)
+            {
+               await _blobService.DeleteAsync(gift.ImageUrl, ct);
+            }
+            gift.ImageUrl = dto.ImageUrl;
+            
             await _dbContext.SaveChangesAsync(ct);
             return true;
         }

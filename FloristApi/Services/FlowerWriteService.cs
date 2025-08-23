@@ -60,7 +60,6 @@ namespace FloristApi.Services
 
             flower.Name         = dto.Name;
             flower.Description  = dto.Description;
-            flower.ImageUrl     = dto.ImageUrl;
 
             flower.ProductType  = dto.ProductType;
             flower.Color        = dto.Color;
@@ -72,6 +71,12 @@ namespace FloristApi.Services
             flower.FlowerTypes.Clear();
             foreach (var t in types)
                 flower.FlowerTypes.Add(t);
+            if(flower.ImageUrl != dto.ImageUrl)
+            {
+                await _blobService.DeleteAsync(flower.ImageUrl, ct);
+            }
+            flower.ImageUrl = dto.ImageUrl;
+
             await _dbContext.SaveChangesAsync(ct);
             return true;
         }
