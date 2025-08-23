@@ -1,12 +1,10 @@
 ﻿using FloristApi.Models.Entities;
 using FloristApi.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FloristApi.Controllers.baseController
 {
     [ApiController]
-    [ApiExplorerSettings(IgnoreApi = true)] // hide the base from Swagger
     public class GiftPublicBaseController<T> : ControllerBase where T : class, IGiftEntity
     {
         private readonly IGiftReadService<T> _giftReadService;

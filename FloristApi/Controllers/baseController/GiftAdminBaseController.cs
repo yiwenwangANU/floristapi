@@ -1,13 +1,11 @@
 ﻿using FloristApi.Models.Dtos.admin;
 using FloristApi.Models.Entities;
 using FloristApi.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FloristApi.Controllers.baseController
 {
     [ApiController]
-    [ApiExplorerSettings(IgnoreApi = true)]
     public class GiftAdminBaseController<T> : ControllerBase where T : class, IGiftEntity
     {
         private readonly IGiftReadService<T> _giftReadService;

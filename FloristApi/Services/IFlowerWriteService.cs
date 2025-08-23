@@ -6,9 +6,9 @@ namespace FloristApi.Services
 {
     public interface IFlowerWriteService
     {
-        Task<IEnumerable<Flower>> GetFlowersAdmin();
-        Task<GetFlowerResponse> CreateFlower(CreateFlowerDto dto, CancellationToken ct);
-        Task<bool?> UpdateFlower(int id, CreateFlowerDto dto, CancellationToken ct);
-        Task<bool?> DeleteFlower(int id);
+        Task<IEnumerable<Flower>> GetFlowersAdmin(CancellationToken ct = default);
+        Task<GetFlowerResponse> CreateFlower(CreateFlowerDto dto, CancellationToken ct = default);
+        Task<bool?> UpdateFlower(int id, CreateFlowerDto dto, CancellationToken ct = default);
+        Task DeleteFlower(int id, CancellationToken ct = default);
     }
 }

@@ -26,5 +26,10 @@ namespace FloristApi.Services
 
             return blob.Uri.ToString();
         }
+        public async Task DeleteAsync(string blobName, CancellationToken ct)
+        {
+            var blobClient = _container.GetBlobClient(blobName);
+            await blobClient.DeleteIfExistsAsync(cancellationToken: ct);
+        }
     }
 }

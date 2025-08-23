@@ -11,35 +11,36 @@ namespace FloristApi.Repositories
         {
             _context = context;
         }
-        public async Task Add(Flower entity)
+        public async Task Add(Flower entity, CancellationToken ct)
         {
-            await _context.Flowers.AddAsync(entity);
-            await _context.SaveChangesAsync();
+            await _context.Flowers.AddAsync(entity, ct);
+            await _context.SaveChangesAsync(ct);
         }
 
-        public async Task Update(Flower entity)
+        public async Task Update(Flower entity, CancellationToken ct)
         {
             _context.Flowers.Update(entity);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(ct);
         }
-        public async Task Delete(int id)
+        public async Task<bool> Delete(int id, CancellationToken ct)
         {
-            var flower =  await _context.Flowers.FirstOrDefaultAsync(x => x.Id == id);
-            if (flower == null) return;
+            var flower =  await _context.Flowers.FirstOrDefaultAsync(x => x.Id == id, ct);
+            if (flower == null) return false;
 
             _context.Flowers.Remove(flower);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(ct);
+            return true;
         }
-        public async Task<IEnumerable<Flower>> GetAll()
+        public async Task<IEnumerable<Flower>> GetAll(CancellationToken ct)
         {
-            return await _context.Flowers.ToListAsync();
+            return await _context.Flowers.ToListAsync(ct);
         }
 
-        public async Task<Flower?> GetById(int id)
+        public async Task<Flower?> GetById(int id, CancellationToken ct)
         {
             return await _context.Flowers
                 .Include(f => f.FlowerTypes)
-                .FirstOrDefaultAsync(f => f.Id == id);
+                .FirstOrDefaultAsync(f => f.Id == id, ct);
         }
     }
 }

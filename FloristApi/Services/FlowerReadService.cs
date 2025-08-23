@@ -13,15 +13,15 @@ namespace FloristApi.Services
             _flowerRepository = flowerRepository;
         }
         
-        public async Task<IEnumerable<GetFlowerResponse>> GetFlowers()
+        public async Task<IEnumerable<GetFlowerResponse>> GetFlowers(CancellationToken ct = default)
         {
-            var flowers = await _flowerRepository.GetAll();
+            var flowers = await _flowerRepository.GetAll(ct);
             return flowers.Select(flower => flower.ToResponse());
         }
 
-        public async Task<GetFlowerResponse> GetFlowerById(int id)
+        public async Task<GetFlowerResponse> GetFlowerById(int id, CancellationToken ct = default)
         {
-            var flower = await _flowerRepository.GetById(id);
+            var flower = await _flowerRepository.GetById(id, ct);
             if (flower is null)
             {
                 throw new KeyNotFoundException($"Flower with ID {id} not found.");

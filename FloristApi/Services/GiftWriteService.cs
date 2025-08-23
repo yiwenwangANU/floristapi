@@ -16,7 +16,7 @@ namespace FloristApi.Services
             _dbContext = dbContext;
             _giftRepository = giftRepository;
         }
-        public async Task<GetGiftResponse> CreateGift(CreateGiftDto dto, CancellationToken ct)
+        public async Task<GetGiftResponse> CreateGift(CreateGiftDto dto, CancellationToken ct = default)
         {
             var gift = dto.ToEntity<T>();
             _dbContext.Set<T>().Add(gift);
@@ -28,15 +28,15 @@ namespace FloristApi.Services
                 : throw new Exception("Gift creation failed.");
         }
 
-        public async Task DeleteGift(int id)
+        public async Task DeleteGift(int id, CancellationToken ct = default)
         {
-            var removed = await _giftRepository.Delete(id);
+            var removed = await _giftRepository.Delete(id, ct);
             if (!removed) throw new KeyNotFoundException($"Gift {id} not found.");
         }
 
-        public async Task<bool?> UpdateGift(int id, CreateGiftDto dto, CancellationToken ct)
+        public async Task<bool?> UpdateGift(int id, CreateGiftDto dto, CancellationToken ct = default)
         {
-            var gift = await _giftRepository.GetById(id);
+            var gift = await _giftRepository.GetById(id, ct);
             if (gift == null) throw new KeyNotFoundException($"Gift {id} not found.");
 
             gift.Name = dto.Name;
