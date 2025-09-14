@@ -1,4 +1,5 @@
-﻿using FloristApi.Models.Entities;
+﻿using FloristApi.Models.Dtos.@public;
+using FloristApi.Models.Entities;
 
 namespace FloristApi.Repositories
 {
