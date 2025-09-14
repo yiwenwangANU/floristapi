@@ -45,7 +45,7 @@ namespace FloristApi.Repositories
             if (query.Occasion.HasValue)
                 q = q.Where(f => f.Occasion == query.Occasion.Value);
 
-            if (query.FlowerType.HasValue)
+            if (query.FlowerType is { Count: > 0 })
                 q = q.Where(f=> f.FlowerTypes.Any(ft => ft.Name == query.FlowerType.ToString()));
 
             if (query.MinPrice.HasValue)
@@ -71,13 +71,17 @@ namespace FloristApi.Repositories
         }
         public async Task<IEnumerable<Flower>> GetAll(CancellationToken ct = default)
         {
-            return await _context.Flowers.ToListAsync(ct);
+            return await _context.Flowers
+                .Include(f => f.FlowerTypes)
+                .AsNoTracking()
+                .ToListAsync(ct);
         }
 
         public async Task<Flower?> GetById(int id, CancellationToken ct = default)
         {
             return await _context.Flowers
                 .Include(f => f.FlowerTypes)
+                .AsNoTracking()
                 .FirstOrDefaultAsync(f => f.Id == id, ct);
         }
     }

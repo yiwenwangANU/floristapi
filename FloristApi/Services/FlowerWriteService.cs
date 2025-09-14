@@ -89,10 +89,30 @@ namespace FloristApi.Services
             if (!removed) throw new KeyNotFoundException($"Flower {id} not found.");
         }
 
-        public async Task<IEnumerable<Flower>> GetFlowersAdmin(CancellationToken ct = default)
+        public async Task<IEnumerable<GetFlowerAdminResponse>> GetFlowersAdmin(CancellationToken ct = default)
         {
             var flowers = await _flowerRepository.GetAll(ct);
-            return flowers;
+            return flowers.Select(flower => new GetFlowerAdminResponse
+            {
+                Id = flower.Id,
+                Name = flower.Name,
+                Description = flower.Description,
+                ImageUrl = flower.ImageUrl,
+
+                ProductType = flower.ProductType,
+                Color = flower.Color,
+                Occasion = flower.Occasion,
+
+                Price = flower.Price,
+                Discount = flower.Discount,
+                IsPopular = flower.IsPopular,
+
+                CreatedAt = flower.CreatedAt,
+                FlowerTypes = flower.FlowerTypes
+                    .OrderBy(ft => ft.Name)
+                    .Select(ft => ft.Name)
+                    .ToList()
+            });
         }
     }
 }

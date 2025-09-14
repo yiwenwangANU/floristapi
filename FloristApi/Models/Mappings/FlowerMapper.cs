@@ -37,5 +37,7 @@ namespace FloristApi.Models.Mappings
                 Discount = flower.Discount
             };
         }
+
+        
     }
 }
