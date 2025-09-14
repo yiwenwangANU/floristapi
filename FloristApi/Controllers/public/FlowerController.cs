@@ -1,4 +1,5 @@
 ﻿using FloristApi.Models.Dtos;
+using FloristApi.Models.Dtos.@public;
 using FloristApi.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -21,9 +22,9 @@ namespace FloristApi.Controllers.@public
         }
         
         [HttpGet("getFlowers")]
-        public async Task<IActionResult> GetFlowers()
+        public async Task<IActionResult> GetFlowers([FromQuery] GetFlowerDto dto, CancellationToken ct)
         {
-            var response = await _flowerService.GetFlowers();
+            var response = await _flowerService.GetFlowers(dto, ct);
             return Ok(response);
         }
         [HttpGet("getFlowerById/{id}")]

@@ -13,9 +13,26 @@ namespace FloristApi.Services
             _flowerRepository = flowerRepository;
         }
         
-        public async Task<IEnumerable<GetFlowerResponse>> GetFlowers(CancellationToken ct = default)
+        public async Task<IEnumerable<GetFlowerResponse>> GetFlowers(GetFlowerDto dto, CancellationToken ct = default)
         {
-            var flowers = await _flowerRepository.GetAll(ct);
+            var queryPage = (dto.Page is > 0) ? dto.Page.Value : 1;
+            var queryPageSize = (dto.PageSize is > 0) ? dto.PageSize.Value : 12;
+            var querySort = dto.Sort ?? SortBy.IdAsc; 
+            var query = new GetFlowerQuery
+            {
+                Page = queryPage,
+                PageSize = queryPageSize,
+                ProductType = dto.ProductType,
+                Color = dto.Color,
+                Occasion = dto.Occasion,
+                FlowerType = dto.FlowerType,
+                MinPrice = dto.MinPrice,
+                MaxPrice = dto.MaxPrice,
+                SearchTerm = dto.SearchTerm,
+                Sort = querySort,
+            };
+
+            var flowers = await _flowerRepository.GetFlower(query, ct);
             return flowers.Select(flower => flower.ToResponse());
         }
 

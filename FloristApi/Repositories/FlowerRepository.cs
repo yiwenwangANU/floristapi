@@ -31,6 +31,12 @@ namespace FloristApi.Repositories
             await _context.SaveChangesAsync(ct);
             return true;
         }
+        public async Task<IEnumerable<Flower>> GetFlower(GetFlowerQuery query, CancellationToken ct = default)
+        {
+            return await _context.Flowers
+                .Include(f => f.FlowerTypes)
+                .ToListAsync(ct);
+        }
         public async Task<IEnumerable<Flower>> GetAll(CancellationToken ct = default)
         {
             return await _context.Flowers.ToListAsync(ct);
