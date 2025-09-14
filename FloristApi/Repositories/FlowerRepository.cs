@@ -45,8 +45,8 @@ namespace FloristApi.Repositories
             if (query.Occasion.HasValue)
                 q = q.Where(f => f.Occasion == query.Occasion.Value);
 
-            if (query.FlowerType is { Count: > 0 })
-                q = q.Where(f=> f.FlowerTypes.Any(ft => ft.Name == query.FlowerType.ToString()));
+            if (query.FlowerTypeIds is { Count: > 0 })
+                q = q.Where(f => f.FlowerTypes.Any(ft => query.FlowerTypeIds.Contains(ft.Id)));
 
             if (query.MinPrice.HasValue)
                 q = q.Where(f => f.Price >= query.MinPrice.Value);

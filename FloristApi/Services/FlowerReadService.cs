@@ -25,13 +25,12 @@ namespace FloristApi.Services
                 ProductType = dto.ProductType,
                 Color = dto.Color,
                 Occasion = dto.Occasion,
-                FlowerType = dto.FlowerType,
+                FlowerTypeIds = dto.FlowerTypeIds,
                 MinPrice = dto.MinPrice,
                 MaxPrice = dto.MaxPrice,
                 SearchTerm = dto.SearchTerm,
                 Sort = querySort,
             };
-
             var flowers = await _flowerRepository.GetFlower(query, ct);
             return flowers.Select(flower => flower.ToResponse());
         }

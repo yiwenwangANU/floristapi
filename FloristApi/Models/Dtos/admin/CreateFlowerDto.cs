@@ -6,11 +6,11 @@ namespace FloristApi.Models.Dtos.admin
     public class CreateFlowerDto : IValidatableObject
     {
         [Required(ErrorMessage = "Name is required.")]
-        [StringLength(30, ErrorMessage = "Name can't exceed 30 characters.")]
+        [StringLength(100, ErrorMessage = "Name can't exceed 100 characters.")]
         public required string Name { get; set; }
 
         [Required(ErrorMessage = "Description is required.")]
-        [StringLength(500, ErrorMessage = "Description can't exceed 500 characters.")]
+        [StringLength(1000, ErrorMessage = "Description can't exceed 1000 characters.")]
         public required string Description { get; set; }
 
         [Required(ErrorMessage = "Image URL is required.")]
