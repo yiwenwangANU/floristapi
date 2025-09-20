@@ -8,8 +8,6 @@
         basket,
         funeral,
         hamper,
-        plant,
-        succulent,
         driedflower,
         other
     }
@@ -27,12 +25,14 @@
     public enum OccasionTypes
     {
         birthday,
-        sympathy,
+        graduation,
+        anniversary,
+        wedding,
+        newbaby,
         thankyou,
         getwell,
+        sympathy,
         funeral,
-        newbaby,
-        congratulations,
         other
     }
     public enum FlowerTypes
@@ -49,5 +49,13 @@
         irises,
         tulips,
         other,
+    }
+    public enum PlantTypes
+    {
+        succulents,
+        terrarium,
+        floweringPlants,
+        greenPlants,
+        orchids
     }
 }
