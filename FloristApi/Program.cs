@@ -52,6 +52,11 @@ builder.Services.AddCors(options =>
 builder.Services.AddScoped<IFlowerRepository, FlowerRepository>();
 builder.Services.AddScoped<IFlowerReadService, FlowerReadService>();
 builder.Services.AddScoped<IFlowerWriteService, FlowerWriteService>();
+
+builder.Services.AddScoped<IPlantRepository, PlantRepository>();
+builder.Services.AddScoped<IPlantReadService, PlantReadService>();
+builder.Services.AddScoped<IPlantWriteService, PlantWriteService>();
+
 builder.Services.AddScoped(typeof(IGiftRepository<>), typeof(GiftRepository<>));
 builder.Services.AddScoped(typeof(IGiftReadService<>), typeof(GiftReadService<>));
 builder.Services.AddScoped(typeof(IGiftWriteService<>), typeof(GiftWriteService<>));
