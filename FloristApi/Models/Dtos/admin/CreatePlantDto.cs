@@ -25,7 +25,6 @@ namespace FloristApi.Models.Dtos.admin
         [Range(1, 10000, ErrorMessage = "Price must be between $1 and $10,000.")]
         public required int Price { get; set; }
         public int? Discount { get; set; }
-        public bool? isPopular { get; set; } = false;
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
