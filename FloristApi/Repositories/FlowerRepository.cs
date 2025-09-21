@@ -81,7 +81,6 @@ namespace FloristApi.Repositories
         {
             return await _context.Flowers
                 .Include(f => f.FlowerTypes)
-                .AsNoTracking()
                 .FirstOrDefaultAsync(f => f.Id == id, ct);
         }
     }

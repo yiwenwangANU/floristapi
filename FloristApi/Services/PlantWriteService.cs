@@ -1,6 +1,7 @@
 ﻿using FloristApi.Data;
 using FloristApi.Models.Dtos.admin;
 using FloristApi.Models.Dtos.@public;
+using FloristApi.Models.Entities;
 using FloristApi.Models.Mappings;
 using FloristApi.Repositories;
 
@@ -40,7 +41,10 @@ namespace FloristApi.Services
 
             plant.Price = dto.Price;
             plant.Discount = dto.Discount ?? 0;
-
+            if (plant.ImageUrl != dto.ImageUrl)
+            {
+                await _blobService.DeleteAsync(plant.ImageUrl, ct);
+            }
             plant.ImageUrl = dto.ImageUrl;
 
             await _dbContext.SaveChangesAsync(ct);

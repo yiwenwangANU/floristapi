@@ -63,7 +63,6 @@ namespace FloristApi.Repositories
         public async Task<IEnumerable<Plant>> GetAll(CancellationToken ct = default)
         {
             return await _context.Plants
-                .Include(f => f.PlantType)
                 .AsNoTracking()
                 .ToListAsync(ct);
         }
@@ -71,8 +70,6 @@ namespace FloristApi.Repositories
         public async Task<Plant?> GetById(int id, CancellationToken ct = default)
         {
             return await _context.Plants
-                .Include(f => f.PlantType)
-                .AsNoTracking()
                 .FirstOrDefaultAsync(f => f.Id == id, ct);
         }
     
