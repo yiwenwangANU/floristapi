@@ -1,3 +1,4 @@
+using FloristApi.Configuration;
 using FloristApi.Data;
 using FloristApi.Integrations.Stripe;
 using FloristApi.Middlewares;
@@ -39,12 +40,15 @@ builder.Services.AddControllers().AddJsonOptions(o =>
 });
 
 // Enable CORS
+var corsOrigins = builder.Configuration
+    .GetSection("Cors:Origins")
+    .Get<string[]>() ?? Array.Empty<string>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend",
                           policy =>
                           {
-                              policy.WithOrigins("https://localhost:3000")
+                              policy.WithOrigins(corsOrigins)
                                                   .AllowCredentials()
                                                   .AllowAnyHeader()
                                                   .AllowAnyMethod();
