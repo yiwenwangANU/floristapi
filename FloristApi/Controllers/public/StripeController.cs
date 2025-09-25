@@ -1,6 +1,13 @@
-﻿namespace FloristApi.Controllers.public
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace FloristApi.Controllers.@public
 {
-    public class StripeController
-{
-}
+    public class StripeController: ControllerBase
+    {
+        [HttpPost("Pay")]
+        public IActionResult Pay([FromBody] string priceId)
+        {
+
+        }
+    }
 }

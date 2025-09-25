@@ -1,4 +1,5 @@
 using FloristApi.Data;
+using FloristApi.Integrations.Stripe;
 using FloristApi.Middlewares;
 using FloristApi.Repositories;
 using FloristApi.Services;
@@ -6,6 +7,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Azure;
+using Stripe;
+using Stripe.TestHelpers;
 using System.Text.Json.Serialization;
 
 
@@ -13,7 +16,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
-
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -62,6 +64,13 @@ builder.Services.AddScoped(typeof(IGiftReadService<>), typeof(GiftReadService<>)
 builder.Services.AddScoped(typeof(IGiftWriteService<>), typeof(GiftWriteService<>));
 
 builder.Services.AddScoped<IBlobService, BlobService>();
+
+builder.Services.Configure<StripeModel>(builder.Configuration.GetSection("Stripe"));
+builder.Services.AddScoped<TokenService>();
+builder.Services.AddScoped<Stripe.CustomerService>();
+builder.Services.AddScoped<ChargeService>();
+builder.Services.AddScoped<ProductService>();
+
 var app = builder.Build();
 
 // serve wwwroot (default) => /uploads/... will be public
