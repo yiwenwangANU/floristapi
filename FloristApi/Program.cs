@@ -45,14 +45,13 @@ var corsOrigins = builder.Configuration
     .Get<string[]>() ?? Array.Empty<string>();
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowFrontend",
-                          policy =>
-                          {
-                              policy.WithOrigins(corsOrigins)
-                                                  .AllowCredentials()
-                                                  .AllowAnyHeader()
-                                                  .AllowAnyMethod();
-                          });
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy.WithOrigins(corsOrigins)
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials();
+    });
 });
 
 builder.Services.AddScoped<IFlowerRepository, FlowerRepository>();

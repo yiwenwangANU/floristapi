@@ -41,9 +41,12 @@ namespace FloristApi.Controllers.@public
                   },
                 },
                 Mode = "payment",
-                SuccessUrl = _model.domain + "/success.html",
-                CancelUrl = domain + "/cancel.html",
+                SuccessUrl = _model.Domain + "/checkout/success",
+                CancelUrl = _model.Domain + "/checkout/cancel",
             };
+            var service = new SessionService();
+            Session session = service.Create(options);
+            return Ok(session.Url);
         }
     }
 }
