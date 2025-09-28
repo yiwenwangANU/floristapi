@@ -1,4 +1,3 @@
-using FloristApi.Configuration;
 using FloristApi.Data;
 using FloristApi.Integrations.Stripe;
 using FloristApi.Middlewares;
@@ -73,6 +72,7 @@ builder.Services.AddScoped<TokenService>();
 builder.Services.AddScoped<Stripe.CustomerService>();
 builder.Services.AddScoped<ChargeService>();
 builder.Services.AddScoped<ProductService>();
+builder.Services.AddScoped<PriceService>();
 
 var app = builder.Build();
 
