@@ -35,34 +35,36 @@ namespace FloristApi.Controllers.@public
         public IActionResult Pay([FromBody] StripePayRequest request)
         {
             StripeConfiguration.ApiKey = _model.SecretKey;
+
             var lineItems = request.Items.Select(item => new SessionLineItemOptions
             {
                 Price = item.PriceId,
                 Quantity = item.Quantity,
             }).ToList();
 
+            var shippingOptions = new List<SessionShippingOptionOptions>
+            {
+                new SessionShippingOptionOptions
+                {
+                    ShippingRateData = new SessionShippingOptionShippingRateDataOptions
+                    {
+                        DisplayName = "Standard Delivery",
+                        FixedAmount = new SessionShippingOptionShippingRateDataFixedAmountOptions
+                        {
+                            Amount = 1500,
+                            Currency = "aud"
+                        },
+                        Type = "fixed_amount"
+                    }
+                }
+            };
             var options = new SessionCreateOptions
             {
                 LineItems = lineItems,
                 Mode = "payment",
                 SuccessUrl = _model.Domain + "/checkout/success",
                 CancelUrl = _model.Domain + "/checkout/cancel",
-                ShippingOptions = new List<SessionShippingOptionOptions>
-                {
-                    new SessionShippingOptionOptions
-                    {
-                        ShippingRateData = new SessionShippingOptionShippingRateDataOptions
-                        {
-                            DisplayName = "Standard Delivery",
-                            FixedAmount = new SessionShippingOptionShippingRateDataFixedAmountOptions
-                            {
-                                Amount = 1500, 
-                                Currency = "aud"
-                            },
-                            Type = "fixed_amount"
-                        }
-                    }
-                }
+                ShippingOptions = shippingOptions
             };
 
             var service = new SessionService();
