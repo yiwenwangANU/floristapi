@@ -34,7 +34,9 @@ namespace FloristApi.Models.Mappings
                 ImageUrl = flower.ImageUrl,
                 Price = flower.Price,
                 ProductType = flower.ProductType,
-                Discount = flower.Discount
+                Discount = flower.Discount,
+                StripeProductId = flower.StripeProductId,
+                StripePriceId = flower.StripePriceId,
             };
         }
 

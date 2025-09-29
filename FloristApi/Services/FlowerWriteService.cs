@@ -6,6 +6,7 @@ using FloristApi.Models.Mappings;
 using FloristApi.Repositories;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
+using Stripe;
 
 namespace FloristApi.Services
 {
@@ -14,11 +15,13 @@ namespace FloristApi.Services
         private readonly ApplicationDbContext _dbContext;
         private readonly IFlowerRepository _flowerRepository;
         private readonly IBlobService _blobService;
-        public FlowerWriteService(ApplicationDbContext dbContext, IFlowerRepository flowerRepository, IBlobService blobService)
+        private readonly ProductService _productService;
+        public FlowerWriteService(ApplicationDbContext dbContext, IFlowerRepository flowerRepository, IBlobService blobService, ProductService productService)
         {
             _dbContext = dbContext;
             _flowerRepository = flowerRepository;
             _blobService = blobService;
+            _productService = productService;
         }
         public async Task<GetFlowerResponse> CreateFlower(CreateFlowerDto dto, CancellationToken ct = default)
         {
