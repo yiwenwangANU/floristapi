@@ -12,5 +12,7 @@ namespace FloristApi.Models.Dtos.@public
         public int Price { get; set; }
         public ProductTypes ProductType { get; set; }
         public int? Discount { get; set; } = 0;
+        public string StripePriceId { get; set; } = string.Empty;
+        public string StripeProductId { get; set; } = string.Empty;
     }
 }

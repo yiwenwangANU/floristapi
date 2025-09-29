@@ -1,6 +1,5 @@
-﻿using FloristApi.Integrations.Stripe;
+﻿using FloristApi.Integrations.Payment.Stripe;
 using FloristApi.Models.Dtos.admin;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Stripe;
@@ -111,8 +110,12 @@ namespace FloristApi.Controllers.@public
                 },
             };
 
-            var product = _productService.CreateAsync(productOptions);
-            return Ok();
+            var product = await _productService.CreateAsync(productOptions);
+            return Ok(new
+            {
+                ProductId = product.Id,
+                PriceId = product.DefaultPriceId,
+            });
         }
     }
 }

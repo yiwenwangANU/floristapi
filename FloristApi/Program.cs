@@ -1,5 +1,5 @@
 using FloristApi.Data;
-using FloristApi.Integrations.Stripe;
+using FloristApi.Integrations.Payment.Stripe;
 using FloristApi.Middlewares;
 using FloristApi.Repositories;
 using FloristApi.Services;
@@ -74,6 +74,8 @@ builder.Services.AddScoped<ChargeService>();
 builder.Services.AddScoped<ProductService>();
 builder.Services.AddScoped<PriceService>();
 
+builder.Services.AddScoped<IStripeService, StripeService>();
+Stripe.StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
 var app = builder.Build();
 
 // serve wwwroot (default) => /uploads/... will be public

@@ -1,4 +1,5 @@
 ﻿using FloristApi.Data;
+using FloristApi.Integrations.Payment.Stripe;
 using FloristApi.Models.Dtos.admin;
 using FloristApi.Models.Dtos.@public;
 using FloristApi.Models.Entities;
@@ -15,13 +16,13 @@ namespace FloristApi.Services
         private readonly ApplicationDbContext _dbContext;
         private readonly IFlowerRepository _flowerRepository;
         private readonly IBlobService _blobService;
-        private readonly ProductService _productService;
-        public FlowerWriteService(ApplicationDbContext dbContext, IFlowerRepository flowerRepository, IBlobService blobService, ProductService productService)
+        private readonly StripeService _stripeService;
+        public FlowerWriteService(ApplicationDbContext dbContext, IFlowerRepository flowerRepository, IBlobService blobService, StripeService stripeService)
         {
             _dbContext = dbContext;
             _flowerRepository = flowerRepository;
             _blobService = blobService;
-            _productService = productService;
+            _stripeService = stripeService;
         }
         public async Task<GetFlowerResponse> CreateFlower(CreateFlowerDto dto, CancellationToken ct = default)
         {
@@ -41,6 +42,20 @@ namespace FloristApi.Services
             _dbContext.Flowers.Add(flower);
             await _dbContext.SaveChangesAsync(ct);
 
+            // create flower in stripe if error remove flower in db
+            try
+            {
+                var (productId, priceId) = await _stripeService.CreateStripeProduct(flower, ct);
+                flower.StripeProductId = productId;
+                flower.StripePriceId = priceId;
+                await _dbContext.SaveChangesAsync();
+            }
+            catch
+            {
+                _dbContext.Flowers.Remove(flower);
+                await _dbContext.SaveChangesAsync();
+                throw;
+            }
             var response = await _flowerRepository.GetById(flower.Id, ct);
             return response is not null
                 ? response.ToResponse()
