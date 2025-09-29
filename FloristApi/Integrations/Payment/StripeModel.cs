@@ -1,4 +1,4 @@
-﻿namespace FloristApi.Integrations.Payment.Stripe
+﻿namespace FloristApi.Integrations.Payment
 {
     public class StripeModel
     {

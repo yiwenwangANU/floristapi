@@ -1,6 +1,6 @@
 ﻿using FloristApi.Models.Entities;
 
-namespace FloristApi.Integrations.Payment.Stripe
+namespace FloristApi.Integrations.Payment
 {
     public interface IStripeService
     {

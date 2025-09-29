@@ -1,5 +1,5 @@
 using FloristApi.Data;
-using FloristApi.Integrations.Payment.Stripe;
+using FloristApi.Integrations.Payment;
 using FloristApi.Middlewares;
 using FloristApi.Repositories;
 using FloristApi.Services;
@@ -53,6 +53,7 @@ builder.Services.AddCors(options =>
     });
 });
 
+
 builder.Services.AddScoped<IFlowerRepository, FlowerRepository>();
 builder.Services.AddScoped<IFlowerReadService, FlowerReadService>();
 builder.Services.AddScoped<IFlowerWriteService, FlowerWriteService>();
@@ -67,6 +68,7 @@ builder.Services.AddScoped(typeof(IGiftWriteService<>), typeof(GiftWriteService<
 
 builder.Services.AddScoped<IBlobService, BlobService>();
 
+StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
 builder.Services.Configure<StripeModel>(builder.Configuration.GetSection("Stripe"));
 builder.Services.AddScoped<TokenService>();
 builder.Services.AddScoped<Stripe.CustomerService>();
@@ -75,7 +77,6 @@ builder.Services.AddScoped<ProductService>();
 builder.Services.AddScoped<PriceService>();
 
 builder.Services.AddScoped<IStripeService, StripeService>();
-Stripe.StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
 var app = builder.Build();
 
 // serve wwwroot (default) => /uploads/... will be public

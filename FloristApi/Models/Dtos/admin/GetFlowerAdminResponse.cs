@@ -20,5 +20,8 @@ namespace FloristApi.Models.Dtos.admin
 
         public DateTime CreatedAt { get; init; } = DateTime.UtcNow;
         public List<string> FlowerTypes { get; init; } = [];
+
+        public string? StripeProductId { get; set; }
+        public string? StripePriceId { get; set; }
     }
 }

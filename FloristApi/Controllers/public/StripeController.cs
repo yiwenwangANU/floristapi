@@ -1,4 +1,4 @@
-﻿using FloristApi.Integrations.Payment.Stripe;
+﻿using FloristApi.Integrations.Payment;
 using FloristApi.Models.Dtos.admin;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;

@@ -1,18 +1,18 @@
 ﻿using FloristApi.Models.Entities;
-using SdkStripe = global::Stripe;
-namespace FloristApi.Integrations.Payment.Stripe
+using Stripe;
+namespace FloristApi.Integrations.Payment
 {
     public class StripeService: IStripeService
     {
-        private readonly SdkStripe.ProductService _products;
-        public StripeService(SdkStripe.ProductService products) => _products = products;
+        private readonly ProductService _products;
+        public StripeService(ProductService products) => _products = products;
         public async Task<(string productId, string priceId)> CreateStripeProduct(Flower flower, CancellationToken ct)
         {
-            var productOptions = new SdkStripe.ProductCreateOptions
+            var productOptions = new ProductCreateOptions
             {
                 Name = flower.Name,
                 Images = new List<string> { flower.ImageUrl },
-                DefaultPriceData = new SdkStripe.ProductDefaultPriceDataOptions
+                DefaultPriceData = new ProductDefaultPriceDataOptions
                 {
                     UnitAmount = flower.Price * 100,
                     Currency = "aud",

@@ -1,5 +1,5 @@
 ﻿using FloristApi.Data;
-using FloristApi.Integrations.Payment.Stripe;
+using FloristApi.Integrations.Payment;
 using FloristApi.Models.Dtos.admin;
 using FloristApi.Models.Dtos.@public;
 using FloristApi.Models.Entities;
@@ -16,8 +16,8 @@ namespace FloristApi.Services
         private readonly ApplicationDbContext _dbContext;
         private readonly IFlowerRepository _flowerRepository;
         private readonly IBlobService _blobService;
-        private readonly StripeService _stripeService;
-        public FlowerWriteService(ApplicationDbContext dbContext, IFlowerRepository flowerRepository, IBlobService blobService, StripeService stripeService)
+        private readonly IStripeService _stripeService;
+        public FlowerWriteService(ApplicationDbContext dbContext, IFlowerRepository flowerRepository, IBlobService blobService, IStripeService stripeService)
         {
             _dbContext = dbContext;
             _flowerRepository = flowerRepository;
@@ -129,7 +129,9 @@ namespace FloristApi.Services
                 FlowerTypes = flower.FlowerTypes
                     .OrderBy(ft => ft.Name)
                     .Select(ft => ft.Name)
-                    .ToList()
+                    .ToList(),
+                StripeProductId = flower.StripeProductId,
+                StripePriceId = flower.StripePriceId
             });
         }
     }
