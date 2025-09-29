@@ -6,5 +6,7 @@
         string Name { get; set; }
         string ImageUrl { get; set; }
         int Price { get; set; }
+        string StripePriceId { get; set; }
+        string StripeProductId { get; set; }
     }
 }

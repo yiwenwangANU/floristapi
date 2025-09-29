@@ -15,5 +15,8 @@ namespace FloristApi.Models.Entities
         public int Discount { get; set; } = 0;
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+        public string StripePriceId { get; set; } = string.Empty;
+        public string StripeProductId { get; set; } = string.Empty;
     }
 }

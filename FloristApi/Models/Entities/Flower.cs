@@ -22,6 +22,9 @@ namespace FloristApi.Models.Entities
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public HashSet<FlowerType> FlowerTypes { get; } = [];
+
+        public string StripePriceId { get; set; } = string.Empty;
+        public string StripeProductId { get; set; } = string.Empty;
     }
 
     public class FlowerType
